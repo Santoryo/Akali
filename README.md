@@ -1,4 +1,4 @@
-# akali
+# Akali
 Akali is League of Legends LCU data fetcher mostly made to populate [Sivir.GG](https://sivir.gg/) data.
 
 ## Credits
