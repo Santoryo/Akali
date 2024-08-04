@@ -16,7 +16,7 @@ This project wouldn't work without a comfortable way to explore LCU API. During 
 
 ### lolstaticdata
 Meraki Analytics provides the best and fullest static informations about League of Legends items & champions.
-- [Repository](https://github.com/dysolix/hasagi-types](https://github.com/meraki-analytics/lolstaticdata)
+- [Repository](https://github.com/meraki-analytics/lolstaticdata)
 - [CDN](http://cdn.merakianalytics.com/riot/lol/resources/latest/en-US/champions.json)
 
 ### Disclaimer
