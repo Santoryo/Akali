@@ -28,7 +28,6 @@ export async function eventsFetch(credentials: Credentials) {
     {
         const eventId = event.eventId;
         const checkIfEventExists = await pb.collection('events').getFullList({filter: `eventId="${eventId}"`});
-        if (checkIfEventExists.length > 0) continue;
 
         const temp1 = await createHttp1Request({
             method: 'GET',
@@ -79,6 +78,11 @@ export async function eventsFetch(credentials: Credentials) {
         formData.append('shopOffers', eventObject.shopOffers);
         formData.append('eventType', eventObject.eventType);
 
+        if (checkIfEventExists.length > 0) {
+            const request = await pb.collection('events').update(checkIfEventExists[0].id, formData);
+            console.log("Updated event entry with ID: " + request.id);
+            continue;
+        }
         const request = await pb.collection('events').create(formData);
         console.log("Created new event entry with ID: " + request.id);
     }

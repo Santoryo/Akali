@@ -2,6 +2,7 @@ import { createHttp1Request, type Credentials } from "league-connect";
 import type { MythicShop } from "../interfaces/MythicShop";
 import { pb, admin } from "../utils/pocketbase";
 import { currentPatch } from "./currentPatch";
+import "../utils/lol2cdragon";
 
 class MythicShopItem {
     category: string = "";
@@ -49,7 +50,7 @@ export async function mythicShopFetch(credentials: Credentials) {
             }
             else if(item.imagePath != "")
             {
-                const imagePath = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/" + item.imagePath.split("/").pop()?.toLowerCase();
+                const imagePath = item.imagePath.lol2cdragon(patch);
                 const checkIfExists = await pb.collection('mythicshop').getFullList({ filter: `imagePath="${imagePath}" && patch="${patch}"` });
 
                 if (checkIfExists.length > 0) {
@@ -61,7 +62,9 @@ export async function mythicShopFetch(credentials: Credentials) {
                 mythicShopItem.category = "ITEM";
                 mythicShopItem.patch = patch;
                 mythicShopItem.price = item.slots[0].quantity;
-                mythicShopItem.imagePath = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/" + item.imagePath.split("/").pop()?.toLowerCase();
+                mythicShopItem.name = item.description;
+                mythicShopItem.outputs = item.outputs;
+                mythicShopItem.imagePath = imagePath;
 
                 const request = await pb.collection('mythicshop').create(mythicShopItem);
                 console.log("Created new mythic shop entry with ID: " + request.id);
