@@ -2,6 +2,9 @@
   "name": "akali",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "dev": "npx tsx ./index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "tsx": "^4.16.3",
